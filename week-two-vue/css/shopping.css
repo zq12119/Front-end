@@ -1,0 +1,107 @@
+.box1 {
+    height: 50px;
+    background-color: skyblue;
+}
+
+.biaoti2 {
+    margin-left: 20px;
+    color: white;
+    line-height: 50px;
+    font-size: 18px;
+}
+
+.box2 {
+    height: 60px;
+}
+
+.wenzi1 {
+    font-weight: 600;
+    margin-left: 50px;
+    line-height: 60px;
+    font-size: 16px;
+}
+
+.chaxun {
+    width: 50px;
+    height: 30px;
+    background: skyblue;
+    border: 0;
+    color: white;
+    border-radius: 5px;
+}
+
+.select {
+    border-radius: 5px;
+    height: 25px;
+    width: 250px;
+    margin-right: 50px;
+    border: 1px solid green;
+}
+
+hr {
+    height: 1px;
+    background-color: skyblue;
+}
+
+table {
+    width: 1050px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-top: 30px;
+
+}
+.table1{
+    
+      font-size: 18px;
+      font-weight: 800px;
+      height: 50px;
+      font-weight: bold;
+
+}
+
+table td {
+    text-align: center;
+    border: 1px solid grey;
+}
+
+
+.zongjie {
+    margin-left: 30px;
+    font-weight: 600;
+}
+
+
+.box3 {
+    margin: 20px;
+}
+
+.box4 {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    max-height: 420px;
+    overflow: auto;
+    float: left;
+    margin-top: -20px;
+}
+
+.box5 {
+    margin-left: 50px;
+    width: 500px;
+    height: 380px;
+    border: 5px dashed skyblue;
+    float: right;
+    padding: 10px;
+}
+
+.tijiao {
+    margin-top: 30px;
+    margin-left: 50px;
+    width: 50px;
+    height: 30px;
+    background: skyblue;
+    color: white;
+    border: 0;
+    border-radius: 5px;
+}

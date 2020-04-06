@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>记事本</title>
+    <link rel="stylesheet" href="./css/notebook.css">
+</head>
+<body>
+    <!-- 主体区域 -->
+    <section id="app">
+        <!-- 输入框 -->
+        <header class="header">
+            <h1>记事本</h1>
+            <input type="text" class="new todo" v-model="newValue" @keyup.enter="add" autofocus="autofocus" autocomplete="off" placeholder="请输入安排任务">
+        </header>
+        <!-- 列表区域 -->
+        <section class="main">
+            <ul class="todo-list">
+                <li class="todo" v-for="(item,index) in todos">
+                    <div class="view">
+                        <span class="index">{{index+1}}.</span>
+                       <label for="">{{item}}</label>
+                       <button class="destroy" @click="remove(index)"> </button>
+                    </div>
+                </li>
+            </ul>
+        </section>
+        <!-- 统计和清空 -->
+        <footer class="footer">
+            <span class="todo-count" v-show="todos.length>0"><strong>{{todos.length}}</strong>items left</span>
+            <button class="clear-completed" @click="clear" v-show="todos.length>0">Clear</button>
+        </footer>
+    </section>
+    <footer class="info">
+    </footer>
+     <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+     <script>
+         const vm=new Vue({
+             el:'#app',
+             data:{
+                 todos: ['刷抖音','看电视','玩游戏'],
+                 newValue:''
+             },
+             methods:{
+                 add(){
+                     this.todos.push(this.newValue);
+                     this.newValue=''
+                 },
+                 remove:function(index){
+                     this.todos.splice(index,1);
+                 },
+                 clear:function(){
+                     this.todos.splice(0,this.todos.length);
+                 }
+             }
+         });
+     </script>
+</body>
+</html>

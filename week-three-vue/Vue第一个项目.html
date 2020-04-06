@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一个vue搭建</title>
+</head>
+<body>
+    <!-- 理解MVVM实现 -->
+    <div id="demo">
+        <!-- 3.可以通过{{}}显示vue中的数据 -->
+        <h2>{{message}}</h2>
+        <h1 v-text="message"></h1>
+        <!-- v-model实现双向绑定 -->
+        <input type="text" v-model="message"></input>
+    </div>
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        // 2.创建vue实例，需要指定el和data属性
+        const demo=new Vue({
+            // 指定vue监管的视图区域，只要id为app的div内部才会受vue管理
+            el:'#demo',
+            data:{
+                message:"hello 今天吃可爱多"
+            }
+        })
+    </script>
+</body>
+</html>

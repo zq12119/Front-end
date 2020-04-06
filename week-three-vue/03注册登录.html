@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件切换</title>
+</head>
+<body>
+    <div id="app">
+        <a href="" @click.prevent="isLogin=true">登录</a>
+        <a href="" @click.prevent="isLogin=false">注册</a><br><br>
+        <login v-if="isLogin"></login>
+        <register v-else="isLogin"></register>
+    </div>
+
+    <template id="login">
+        <div>登录组件</div>
+    </template>
+    <template id="register">
+        <div>注册组件</div>
+    </template>
+
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+   <script>
+       Vue.component('login',{
+           template:'#login'
+       })
+       Vue.component('register',{
+           template:'#register'
+       })
+       let app=new Vue({
+           el:'#app',
+           data:{
+               isLogin:true
+           }
+       })
+   </script>
+</body>
+</html>

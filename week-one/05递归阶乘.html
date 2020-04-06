@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>递归阶乘</title>
+</head>
+
+<body>
+    <script type="text/javascript">
+        var n = prompt("输入一个正整数");
+        var m = res(n);
+        function res(m) {
+            if (m == 1) {
+                return 1
+            } else {
+                return m * res(m - 1)
+            }
+        }
+        document.write(m)            
+    </script>
+</body>
+
+</html>

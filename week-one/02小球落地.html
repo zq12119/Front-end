@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var fn = function () {
+            var s = 100;
+            var sum = 0;
+            for (var i = 0; i < 10; i++) {
+                sum += s;
+                s /= 2;
+                if (i == 9) {
+                    alert("第10次落地时，经过" + sum + "米\n第10次反弹" + s + "米");
+                }
+                sum += s;
+            }
+        }
+        fn();
+        alert(sum);
+    </script>
+</body>
+</html>

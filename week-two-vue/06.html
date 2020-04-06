@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <div>{{pmsg}}</div>
+        <menu-item ：pstr='pstr' :pnum='12' :pboolean='true'：parray='parr' :pobj='pobj'>  </menu-item>
+    </div>
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+   <script>
+        Vue.component('menu-item',{
+        // <!-- 在javascript中使用驼峰式命名 -->
+        props:['pstr','pnum','pboolean','parray','pobj'],
+        template:`
+            <div>
+            <div>字符串：{{typeof pstr}}----{{pstr}}</div>
+            <div>数值：{{typeof pnum}}----{{ 12 + pnum}}</div>
+            <div>布尔值:{{typeof pboolean}}----{{pboolean}}</div>
+             <ul>
+                    <li :key='index' v-for='(item,index) in parray'>
+                    {{index + 1}}----{{item}}
+                    </li>
+                </ul>
+                    <div>
+                    <span>{{pobj.name}}</span>
+                    <span>{{pobj.age}}</span>
+                    </div>
+            </div>`,
+    })
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            pmsg:'父组件中的内容',
+            pstr:'字符串',
+            parr:['周一','周二','周三'],
+            pobj:{
+                name:'vue',
+                age:'20'
+            }
+        }
+    })
+   </script>
+</body>
+</html>

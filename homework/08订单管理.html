@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>订单管理</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <!-- 总框架 -->
+    <div id="app">
+        <div class="main" id="app">
+            <!-- 第一部分 -->
+            <div class="top">
+                <div class="text">
+                    <h5>订单管理</h5>
+                </div>
+            </div>
+            <!-- 品牌查询区域 -->
+            <div class="type">
+                品牌：<input type="text" v-model="select" placeholder="请输入您要查找的内容">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button @click="search">查询</button>
+            </div>
+            <!-- 主体区域 -->
+            <div class="big">
+                <!-- 列表 -->
+                <div class="big2">
+                    <table class="table" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <td class="thone">品牌</td>
+                                <td width="110">订单日期</td>
+                                <td width="80">订单价格</td>
+                                <td width="90px">购买数量</td>
+                                <td>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in orders">
+                                <td>{{item.brandname}}</td>
+                                <td>{{item.time}}</td>
+                                <td>{{item.price}}</td>
+                                <td>
+                                    <input type="button" value="- " @click="sub(index)">
+                                    <span>{{item.num}}</span>
+                                    <input type="button" value="+" @click="add(index)">
+                                </td>
+                                <td><button @click="del(index)">删除</button></td>
+                            </tr>
+                        </tbody>
+                        <tr>
+                            <tr class="text2">
+                                <td>订单总额:</td>
+                                <td><span>{{sum}}</span></td>
+                                <td colspan="2"></td>
+                                <td><button @click="deal">结算</button></td>
+                            </tr>
+                        </tr>
+                    </table>
+
+                </div>
+                <!-- 新增订单 -->
+                <div class="big3">
+                    <div class="textnew">
+                        新增订单
+                    </div>
+                    <hr /><br>
+                    品牌<br>
+                    <input type="text" v-model="brandname" placeholder="如：笔记本，手机"><br><br>
+                    价格<br>
+                    <input type="number" v-model="price" placeholder="如:50"><br><br>
+                    数量<br>
+                    <input type="number" v-model="num" placeholder="如：2"><br><br>
+                    <button @click="btn">提 交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                orders: {
+                    brandname: '',
+                    time: '',
+                    price: '',
+                    num: '',
+                },
+                orders: [],
+                sum: 0,
+            },
+            methods: {
+               // 物品加加
+               add: function (index) {
+                        this.orders[index].num++;
+                    },
+               
+                    sub: function (index) {
+                        if (this.orders[index].num > 0) {
+                            this.orders[index].num--;
+                        } else {
+                            alert('购买数量不能为负值');
+                        }
+                    },
+                sum:function(index){
+                    let ad = 0;
+                    this.orders.forEach(item => {
+                        ad += this.orders[index].price * this.orders[index].num; 
+                    });
+                    this.sum=ad;
+                
+                },
+                 // 计算总价
+                 deal() {
+                        let ad = 0;
+                        this.orders.forEach(item => {
+                            ad += item.price*item.num;
+                        });
+                        this.sum = ad;
+
+                    },
+                     //  删除订单
+                     del: function (index) {
+                        this.orders.splice(index, 1);
+                        var a = 0;
+                        for (let i = 0; i < this.orders.length; i++) {
+                            a = parseInt(a) + parseInt(this.orders[i].price);
+                        }
+                        this.sum = a;
+                    },
+
+                
+                
+                // 添加订单并且获取时间
+                btn: function (index) {
+                        var date = new Date();
+                        var fuhao = "-";
+                        var year = date.getFullYear();
+                        var moth = date.getMonth();
+                        var strDate = date.getDate();
+                        if (moth >= 1 && moth <= 9) {
+                            moth = "0" + moth;
+                        }
+                        if (strDate >= 0 && strDate <= 9) {
+                            strDate = "0" + strDate;
+                        }
+                        var tim = year + fuhao + moth + fuhao + strDate + - +date.getHours() + ":" + date
+                            .getMinutes();
+                        this.orders.push({
+                            brandname: this.brandname,
+                            time: tim,
+                            price: this.price,
+                            num: this.num,
+                        })
+
+                    },
+              
+                search: function () {
+                    var order;
+                    for (let i = 0; i < this.orders.length; i++) {
+                        if ((this.orders[i].brandname == this.select) && this.select != -1) {
+                            order = this.orders[i];
+                            this.orders.splice(0, this.orders.length);
+                            this.orders.push(order);
+                        }
+                    }
+                    this.sum+=this.orders[index].price*this.orders[indexe].num;
+                },
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

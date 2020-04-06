@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr4=[1,2,3,4,5,6,7,8,9];
+        arr4.fill(1,2,5);
+        console.log(arr4);
+    </script>
+    <!-- <script>
+        let arr5=['niit','computer','mobile'];
+        //输出索引
+        for(let index of arr5.key()){
+            console.log(index);
+        }
+        //输出值
+        for(let index of arr5.values()){
+            console.log(index);
+        }
+        //输出索引和内容
+        for(let[index,val]of arr5.entries()){
+            console.log(index+":"+val);
+        }
+        //entries()方法
+        let list=arr5.entries();
+        console.log(list.next().value);
+    </script> -->
+    <script>
+        let scores=[23,24,25,2,6,3,22,21];
+        let scores1=scores.map(score=>{
+            if(scores>=60){
+                return '及格';
+            }else{
+                return '不及格';
+            }
+            });
+    </script>
+</body>
+</html>

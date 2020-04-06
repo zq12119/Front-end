@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 插槽内容 -->
+    <div id="app">
+        <base-alyout>
+        <p slot='header'>标题内容</p>
+        <p>主要内容</p>
+        <p>主要内容2</p>
+        <p slot='footer'>底部信息</p>
+        </base-alyout>
+    </div>
+
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<!-- 插槽定义 -->
+    <script>
+        Vue.component('base-layout',{
+            template:`
+            <div class="container">
+                <header>
+                    <slot name="header"></slot>
+                    </header>
+                    <main>
+                        <slot></slot>
+                        </main>
+                        <footer>
+                        <slot name="footer"></slot>
+                        </footer>
+                </div>
+            `
+        })
+
+        var app = new app({
+            el:'#app'
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>一到n的阶乘</title>
+</head>
+
+<body>
+    <script>
+        while (true) { var n = prompt("输入一个整数:", "");
+            if (/^\+?\d+$/.test(n)) {
+                var sum = 0;
+                for (var i = 1; i <= n; i++) {
+                    var x = 1;
+                    for (var j = 1; j <= i; j++) {
+                        x *= j;
+                    } sum += x;
+                }
+                alert("1的阶乘到" + n + "的阶乘的和: " + sum);
+                break;
+            }
+            else {
+                continue;
+            }
+            
+        }
+    </script>
+</body>
+
+</html>

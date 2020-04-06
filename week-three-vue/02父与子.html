@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <parent></parent>
+        </div>
+        
+   <template id="parent">
+    <div>
+        <h1>我是父组件</h1>
+        <child></child>
+        <child></child>
+    </div>
+</template>
+   <template id="child">
+       <h3>我是子组件</h3>
+   </template>
+
+   <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+   <script>
+       var Parent={
+           template:'#parent',
+           components:{
+               'child':{
+                   template:'#child',
+               }
+           }
+       }
+       let vm = new Vue({
+           el:'#app',
+           components:{
+               'parent':Parent
+           }
+       })
+   </script>
+</body>
+</html>

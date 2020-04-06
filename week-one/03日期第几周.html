@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入日期判断周几</title>
+</head>
+
+<body>
+    <script  type="text/javascript">
+        function myfun(s){
+            var weekDay=["周一","周二","周三","周四","周五","周六","周日"];
+            var b=new Date(Date.parse(s.replace(/\-/g,"/")));
+            alert("所选的时间为："+weekDay[b.getDate()]);
+        }
+
+    </script>
+
+    <select>
+        <option value="0">请选择日期</option>
+        <option value="2020-01-01">2020-01-01</option>
+        <option value="2019-01-01">2019-01-01</option>
+    </select>
+</body>
+
+</html>

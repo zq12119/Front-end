@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 插槽内容 -->
+    <div id="app">
+        <alert-box>有一个发生</alert-box>
+        <alert-box>有一个警告</alert-box>
+        <alert-box></alert-box>
+    </div>
+
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        // 插槽位置
+        Vue.component('alert-box',{
+            template:`
+            <div>
+            <strong>Error:</strong>
+            <slot>默认内容</slot>
+            </div>
+            `
+        })
+
+        var app = new Vue({
+            el:'#app'
+        })
+    </script>
+</body>
+</html>

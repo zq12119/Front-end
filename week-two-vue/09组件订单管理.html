@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		
+		<style type="text/css">
+			.box1 {
+				height: 50px;
+				background-color: skyblue;
+			}
+
+			.biaoti2 {
+				margin-left: 20px;
+				color: white;
+				line-height: 50px;
+				font-size: 18px;
+			}
+
+			.box2 {
+				height: 60px;
+			}
+
+			.wenzi1 {
+				font-weight: 600;
+				margin-left: 50px;
+				line-height: 60px;
+				font-size: 16px;
+			}
+
+			.chaxun {
+				width: 50px;
+				height: 30px;
+				background: skyblue;
+				border: 0;
+				color: white;
+				border-radius: 5px;
+			}
+
+			.select {
+				border-radius: 5px;
+				height: 25px;
+				width: 250px;
+				margin-right: 50px;
+				border: 1px solid green;
+			}
+
+			hr {
+				height: 1px;
+				background-color: skyblue;
+			}
+
+			table {
+				width: 1050px;
+				border-collapse: collapse;
+				margin-bottom: 20px;
+				margin-left: 20px;
+				margin-top: 30px;
+
+			}
+
+			.table1 {
+
+				font-size: 18px;
+				font-weight: 800px;
+				height: 50px;
+				font-weight: bold;
+
+			}
+
+			table td {
+				text-align: center;
+				border: 1px solid grey;
+			}
+
+
+			.zongjie {
+				margin-left: 30px;
+				font-weight: 600;
+			}
+
+
+			.box3 {
+				margin: 20px;
+			}
+
+			.box4 {
+				margin: 0;
+				padding: 0;
+				list-style: none;
+				max-height: 420px;
+				overflow: auto;
+				float: left;
+				margin-top: -20px;
+			}
+
+			.box5 {
+				margin-left: 50px;
+				width: 500px;
+				height: 380px;
+				border: 5px dashed skyblue;
+				float: right;
+				padding: 10px;
+			}
+
+			.tijiao {
+				margin-top: 30px;
+				margin-left: 50px;
+				width: 50px;
+				height: 30px;
+				background: skyblue;
+				color: white;
+				border: 0;
+				border-radius: 5px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="box1">
+				<span class="biaoti2">订单管理</span>
+			</div>
+
+			<div>
+				<cart-title :dingdans='dingdans' :dingdan='dingdan'></cart-title>
+				<cart-list :dingdans='dingdans' :dingdan='dingdan'></cart-list>
+				<cart-total :dingdans='dingdans' :dingdan='dingdan' ></cart-total>
+			</div>
+		</div>
+<!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script>
+			let Title = {
+				props: ['dingdans', 'dingdan'],
+				template: `
+		    <p class="box2">
+		    	<span class="wenzi1">品牌：</span>
+		    	<input type="text" v-model="select" class="select" chaplaceholder="请输入名称" />
+		    
+		    	<button type="button" class="chaxun" @click="serach">查询</button>
+		    </p>`,
+				methods: {
+					// 查询订单名称
+					serach: function() {
+						var dingdan;
+						for (let i = 0; i < this.dingdans.length; i++) {
+							if ((this.dingdans[i].name == this.select) && this.select != -1) {
+								dingdan = this.dingdans[i];
+								this.dingdans.splice(0, this.dingdans.length);
+								this.dingdans.push(dingdan);
+							}
+						}
+					},
+				}
+			}
+			let List = {
+				props: ['dingdans', 'dingdan', 'sum'],
+				template: `
+		 <div class="box4">
+		 	<table style="width: 800px;">
+		 		<tbody>
+		 			<tr class="table1">
+		 				<td width="150px">品牌</td>
+		 				<td>订单日期</td>
+		 				<td>订单价格</td>
+		 				<td>购买数量</td>
+		 				<td>操作</td>
+		 			</tr>
+		 		</tbody>
+		 		<tbody>
+		 			<tr v-for="(dingdan,index) in dingdans">
+		 				<td v-once>{{dingdan.name}}</td>
+		 				<td v-once>{{dingdan.time}}</td>
+		 				<td v-once>{{dingdan.price}}</td>
+		 				<td>
+		 					<input type="button" value="-" @click="jianfen(index)">
+		 					<span v-once>{{dingdan.number}}</span>
+		 					<input type="button" value="+" @click="jiafen(index)">
+		 				</td>
+		 				<td><button @click="remove(index)">删除</button></td>
+		 			</tr>
+		 		</tbody>
+		 	</table>
+		 	<span class="zongjie">订单总额:</span><span class="zongjie" >{{sum}}</span>
+		 	<button @click="jiesuan">结算</button>
+		 </div>
+		  `,
+				methods: {
+					// 加上商品数量
+					jiafen: function(index) {
+						this.dingdans[index].number++;
+					},
+					// 减去商品数量
+					jianfen: function(index) {
+						if (this.dingdans[index].number > 0) {
+							this.dingdans[index].number--;
+						}
+					},
+					// 结果
+					jiesuan() {
+						let price = 0;
+						this.dingdans.forEach(item => {
+							price += item.price * item.number;
+						});
+						this.sum = price;
+					},
+					// 删除订单对象
+					remove: function(index) {
+						this.dingdans.splice(index, 1)
+					
+						var sum = 0;
+						for (let i = 0; i < this.dingdans.length; i++) {
+							sum = parseInt(sum) + parseInt(this.dingdans[i].price);
+						}
+						this.zong = sum;
+					},
+
+				}
+			}
+			let Total = {
+				props: ['dingdan', 'dingdans'],
+				template: `
+		 <div class="box5">
+		 	<h2>新增订单</h2>
+		 	<span class="wenzi1">品牌：</span>
+		 	<input type="text" class="select" v-model="name" placeholder="例如：LG，三星，小米" />
+		 	<br>
+		 	<span class="wenzi1">价格：</span>
+		 	<input type="text" class="select" v-model="price" placeholder="1-999999元" />
+		 	<br>
+		 	<span class="wenzi1">数量：</span>
+		 	<input type="text" class="select" v-model="number" placeholder="如：3" />
+		 	<br>
+		 	<button class="tijiao" @click="insert">提交</button>
+		 
+		 </div>  `,
+				methods: {
+					// 添加订单对象
+					insert: function() {
+						var date = new Date();
+						var seperator1 = "-";
+						var year = date.getFullYear();
+						var month = date.getMonth() + 1;
+						var strDate = date.getDate();
+						if (month >= 1 && month <= 9) {
+							month = "0" + month;
+						}
+						if (strDate >= 0 && strDate <= 9) {
+							strDate = "0" + strDate;
+						}
+						var currentdate = year + seperator1 + month + seperator1 + strDate + - +date.getHours() + ":" + date.getMinutes();
+
+						this.dingdans.push({
+							name: this.name,
+							time: currentdate,
+							price: this.price,
+							number: this.number,
+						})
+
+
+					},
+				}
+			}
+
+			var vm = new Vue({
+				el: '#app',
+				data: {
+					zong: 0,
+					// 订单对象
+					dingdan: {
+						name: '',
+						time: '',
+						price: '',
+						number: ''
+					},
+					// 订单对象数组
+					dingdans: [],
+				},
+				components: {
+					'cart-title': Title,
+					'cart-list': List,
+					'cart-total': Total,
+				},
+			})
+		</script>
+	</body>
+</html>

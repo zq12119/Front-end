@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作用域插槽</title>
+</head>
+<body>
+    <!--  -->
+    <div id="app">
+        <fruit-list :list='list'>
+            <template slot-scope="slotProps">
+                <strong v-if='slotProps.info.id=2' class="current">
+                    {{slotProps.info.name}}
+                </strong>
+                <span v-else>{{slotProps.info.name}}</span>
+            </template>
+        </fruit-list>
+    </div>
+
+    <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+        Vue.component('fruit-list',{
+            template:
+        `
+        <div>
+        <ul>
+        <li :key='item.id' v-for='item in list'>
+        <slot :info='item'>{{item.name}}</slot>
+        </li>
+        </ul>
+        </div>
+        `
+        })
+        var app=new Vue({
+            el:'#app'
+            
+        })
+    </script>
+</body>
+</html>

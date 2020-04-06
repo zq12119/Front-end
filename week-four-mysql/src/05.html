@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        // axio请求拦截器
+        axios.interceptors.request.use(function (config) {
+            console.log(config);
+            config.headers.mytoken = 'aqedns4ii2nglght';
+            return config;
+        }, function (err) {
+            console.log(err);
+        })
+        axios.get('http://localhost:8000/adata')
+            .then(data => {
+                console.log(data);
+            })
+        // axio响应拦截器
+        axios.interceptors.response.use(function (res) {
+            console.log(res);
+            return res.data;
+        }, function (err) {
+            console.log(err);
+        })
+        axios.get('http://localhost:8000/adata')
+            .then(data => {
+                console.log(data)
+            })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简单计算机</title>
+</head>
+<body>
+    <div id="app">
+        <br>
+        <h1>{{msg}}</h1>
+        <br>
+        <!-- 数值A表单元素绑定 -->
+        数值A：<input type="text" v-model="a"><br>
+        数值B：<input type="text" v-model="b"><br>
+        <!-- 为计算按钮绑定事件 -->
+        <button v-model="count" v-on:click="add">计算</button>
+        <br>
+        计算结果： <input type="text" v-model="result">
+    </div>
+     <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+     <script>
+         var app=new Vue({
+             el:'#app',
+             data:{
+                 msg:'简单计算机',
+                //  设置默认值
+                 a:0,
+                 b:0,
+                 result:0
+             },
+            //  绑定的事件从methods中获得最终结果
+             methods:{
+                add(){
+                    this.result=parseInt(this.a)+parseInt(this.b);
+                }
+             }
+            
+         })
+     </script>
+</body>
+</html>

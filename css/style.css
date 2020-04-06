@@ -1,0 +1,79 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.main{
+    background-color:#f6f5ec ;
+    width: 800px;
+    height: 600px;
+    margin: 0 auto;
+    border: 1px solid pink;
+}
+.top{
+    width: 800px;
+    height: 40px;
+    background: pink;
+}
+.text{
+    font-size: 20px;
+    padding-left: 20px;
+    padding-top: 10px;
+    color: #000000;
+}
+.type{
+    padding-top: 10px;
+    padding-left: 20px;
+    width: 779px;
+    height: 40px;
+    border: 1px solid pink;
+}
+.big2{
+    width:450px;
+    padding-top: 27px;
+    padding-left: 20px;
+    float: left;
+}
+ .table{
+    width: 450px;
+    text-align: center;
+}
+table td{
+    border:1px solid #FFDAB9;
+    height: 26px;
+}
+thead td {
+    font-size: 15px;
+    font: weight 700;
+}
+
+tbody td{
+    font-size: 10px;
+}
+.big2 .thone{
+    width: 100px;
+}
+
+.big3{
+    width: 280px;
+    float: right;
+    padding-left: 30px;
+    padding-top: 27px;
+}
+.big2 .sum{
+    text-align: left;
+    font-size: 10px;
+}
+.big3 .textnew{
+    font-size: 2px;
+    color: #454545;
+    font-size: 26px;
+}
+.num{
+    border:1px solid #FFDAB9;
+}
+.text2 {
+    font-size: 15px;
+    text-align: left;
+}
+
+

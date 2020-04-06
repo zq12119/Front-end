@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>组件化订单管理</title>
+    <style type="text/css">
+        .main {
+            background-color: #f6f5ec;
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            border: 1px solid pink;
+        }
+
+        .top {
+            width: 800px;
+            height: 50px;
+            background: pink;
+        }
+
+        .top .text {
+            padding-left: 20px;
+            line-height: 50px;
+            color:#000000;
+        }
+
+        .model {
+            height: 80px;
+            width: 800px;
+        }
+
+        .model .type {
+            line-height: 80px;
+            margin-left: 50px;
+            font-size: 15px;
+        }
+
+        .big2 {
+            width: 450px;
+            padding-top: 27px;
+            padding-left: 20px;
+            float: left;
+        }
+
+        .table {
+            width: 450px;
+            text-align: center;
+        }
+
+        table td {
+            border: 1px solid #FFDAB9;
+            height: 26px;
+        }
+
+        thead td {
+            font-size: 15px;
+            font: weight 700;
+        }
+
+        tbody td {
+            font-size: 10px;
+        }
+
+        .big2 .thone {
+            width: 100px;
+        }
+
+        .big3 {
+            width: 280px;
+            float: right;
+            padding-left: 30px;
+            padding-top: 27px;
+        }
+
+        .big2 .sum {
+            text-align: left;
+            font-size: 10px;
+        }
+
+        .big3 .textnew {
+            font-size: 2px;
+            color: #454545;
+            font-size: 26px;
+        }
+
+        .num {
+            border: 1px solid #FFDAB9;
+        }
+
+        .all {
+            font-size: 15px;
+        }
+
+        .text2 {
+            font-size: 15px;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- 总框架 -->
+    <div id="app">
+        <div class="main">
+            <!-- 第一部分 -->
+            <div class="top">
+                <div class="text">
+                    <h4>订单管理</h4>
+                </div>
+            </div>
+
+            <div>
+                <shop-title :orders='order' :order='order'></shop-title>
+                <shop-list :orders='orders' :order='order'></shop-list>
+                <shop-total :orders='orders' :order='order'></shop-total>
+            </div>
+        </div>
+
+        <!-- 引入vue.js开发环境版本，包含了有帮助的命令行警告 -->
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+        <script>
+            let Title = {
+                props: ['orders', 'order'],
+                template: `
+           <div class="model">
+         <div class="type">
+            品牌：
+            <input type="text" v-model="select" placeholder="请输入您要查找的内容">
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <button @click="search">查询</button>
+            </div>
+        </div>`,
+
+                methods: {
+                    // 查询订单
+                    search: function () {
+                        var order;
+                        for (let i = 0; i < this.orders.length; i++) {
+                            if ((this.orders[i].brandname == this.select) && this.select != -1) {
+                                order = this.orders[i];
+                                this.orders.splice(0, this.orders.length);
+                                this.orders.push(order);
+                            }
+                        }
+                    },
+                }
+
+            }
+            let List = {
+                props: ['orders', 'order', 'sum'],
+                template: `
+         
+                <!-- 列表 -->
+                <div class="big2">
+                    <table class="table" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <td class="thone">品牌</td>
+                                <td width="110">订单日期</td>
+                                <td width="80">订单价格</td>
+                                <td width="90px">购买数量</td>
+                                <td>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr v-for="(item,index) in orders">
+                                <td>{{item.brandname}}</td>
+                                <td>{{item.time}}</td>
+                                <td>{{item.price}}</td>
+                                <td>
+                                    <input type="button" value="- " @click="sub(index)">
+                                    <span>{{item.num}}</span>
+                                    <input type="button" value="+" @click="add(index)">
+                                </td>
+                                <td><button @click="del(index)">删除</button></td>
+                            </tr>
+                        </tbody>
+                        <tr class="text2">
+                            <td>订单总额:</td>
+                            <td><span>{{sum}}</span></td>
+                            <td colspan="2"></td>
+                            <td><button @click="deal">结算</button></td>
+                        </tr>
+                        
+                    </table>
+                          
+                       
+                   
+          </div> `,
+                // 主体部分
+                methods: {
+                    // 物品加加
+                    add: function (index) {
+                        this.orders[index].num++;
+                    },
+                    //    物品减
+                    sub: function (index) {
+                        if (this.orders[index].num > 0) {
+                            this.orders[index].num--;
+                        } else {
+                            alert('购买数量不能为负值');
+                        }
+                    },
+                    // 计算总价
+                    deal() {
+                        let ad = 0;
+                        this.orders.forEach(item => {
+                            ad += item.price*item.num;
+                        });
+                        this.sum = ad;
+
+                    },
+                    //  删除订单
+                    del: function (index) {
+                        this.orders.splice(index, 1);
+                        var a = 0;
+                        for (let i = 0; i < this.orders.length; i++) {
+                            a = parseInt(a) + parseInt(this.orders[i].price);
+                        }
+                        this.sum = a;
+                    },
+
+                }
+            }
+            let Total = {
+                props: ['orders', 'order'],
+                template: `
+            <div class="big3">
+                    <div class="textnew">
+                        新增订单
+                    </div>
+                    <hr /><br>
+                    品牌<br>
+                    <input type="text" v-model="brandname" placeholder="如：笔记本，手机"><br><br>
+                    价格<br>
+                    <input type="number" v-model="price" placeholder="如:50"><br><br>
+                    数量<br>
+                    <input type="number" v-model="num" placeholder="如：2"><br><br>
+                    <button @click="btn">提 交</button>
+                </div>
+            `,
+
+                methods: {
+                    // 添加订单并且获取时间
+                    btn: function (index) {
+                        var date = new Date();
+                        var fuhao = "-";
+                        var year = date.getFullYear();
+                        var moth = date.getMonth();
+                        var strDate = date.getDate();
+                        if (moth >= 1 && moth <= 9) {
+                            moth = "0" + moth;
+                        }
+                        if (strDate >= 0 && strDate <= 9) {
+                            strDate = "0" + strDate;
+                        }
+                        var tim = year + fuhao + moth + fuhao + strDate + - +date.getHours() + ":" + date
+                            .getMinutes();
+                        this.orders.push({
+                            brandname: this.brandname,
+                            time: tim,
+                            price: this.price,
+                            num: this.num,
+                        })
+
+                    },
+                }
+            }
+            var app = new Vue({
+                el: '#app',
+                data: {
+                    // 订单对象
+                    order: {
+                        brandname: '',
+                        time: '',
+                        price: '',
+                        num: '',
+                    },
+                    // 订单对象数组
+                    orders: [],
+                    // 为总数设置默认值
+                    sum: 0,
+                },
+                components: {
+                    'shop-title': Title,
+                    'shop-list': List,
+                    'shop-total': Total,
+                },
+            })
+        </script>
+</body>
+
+</html>
